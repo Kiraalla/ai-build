@@ -64,4 +64,10 @@ $mapSelf: (
   unset: unset
 );
 
-$spacing-base: 4px;
+// ================== 基础配置 ==================
+// 单位配置
+$unit-base: px !default;  // 基础单位类型
+$spacing-base: 4 !default;  // 基础间距数值
+
+// 删除有问题的 spacing-unit
+// $spacing-unit: $spacing-base + $unit-base;  // 这行代码会导致错误的字符串拼接

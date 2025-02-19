@@ -1,10 +1,8 @@
-// @import './_variables';
+@import './_variables';
 
-// 保持其他代码不变
 // ================== 基础混入 ==================
 @mixin generate-utility($property, $values, $prefix: '') {
   @each $key, $value in $values {
-    // 使用字符串拼接来避免颜色值插值警告
     .#{$prefix}#{'' + $key} {
       #{$property}: $value;
     }
@@ -19,17 +17,15 @@
 // 布局系统
 .flex {
   display: flex;
-
   &-col { flex-direction: column; }
   &-wrap { flex-wrap: wrap; }
   &-nowrap { flex-wrap: nowrap; }
 }
 
-.grid {
-  display: grid;
-}
+.grid { display: grid; }
 
-@include generate-utility('grid-template-columns', (
+// Grid 列数系统
+$grid-columns: (
   1: 1fr,
   2: repeat(2, 1fr),
   3: repeat(3, 1fr),
@@ -42,87 +38,45 @@
   10: repeat(10, 1fr),
   11: repeat(11, 1fr),
   12: repeat(12, 1fr)
-), 'grid-cols-');
+);
+@include generate-utility('grid-template-columns', $grid-columns, 'grid-cols-');
 
-@include generate-utility('align-items', (
+// Flexbox & Grid 对齐系统
+$alignment-values: (
   start: flex-start,
   end: flex-end,
   center: center,
   stretch: stretch
-), 'ai-');
+);
 
-@include generate-utility('align-self', (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  stretch: stretch
-), 'as-');
-
-@include generate-utility('justify-content', (
-  start: flex-start,
-  end: flex-end,
-  center: center,
+$justify-values: map-merge($alignment-values, (
   between: space-between,
   around: space-around
-), 'jc-');
+));
 
-@include generate-utility('justify-items', (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  stretch: stretch
-), 'ji-');
-@include generate-utility('justify-self', (
-  start: flex-start,
-  end: flex-end,
-  center: center,
-  stretch: stretch
-), 'js-');
-@include generate-utility('gap', (
-  0: 0,
-  1: $spacing-base,
-  2: $spacing-base * 2,
-  3: $spacing-base * 3,
-  4: $spacing-base * 4,
-  5: $spacing-base * 5
-), 'gap-');
-// 尺寸系统
-@for $i from 1 through 16 {
-  $value: $i * $spacing-base;
-  .w-#{$i} { width: $value; }
-  .h-#{$i} { height: $value; }
-}
-
-// 间距系统
-@for $i from 0 through 16 {
-  $value: $i * $spacing-base;
-  
-  .m-#{$i} { margin: $value; }
-  .mx-#{$i} { margin-left: $value; margin-right: $value; }
-  .my-#{$i} { margin-top: $value; margin-bottom: $value; }
-  .p-#{$i} { padding: $value; }
-  .px-#{$i} { padding-left: $value; padding-right: $value; }
-  .py-#{$i} { padding-top: $value; padding-bottom: $value; }
-  
-  @each $dir, $props in (t: top, r: right, b: bottom, l: left) {
-    .m#{$dir}-#{$i} { margin-#{$props}: $value; }
-    .p#{$dir}-#{$i} { padding-#{$props}: $value; }
-  }
-}
+@include generate-utility('align-items', $alignment-values, 'ai-');
+@include generate-utility('align-self', $alignment-values, 'as-');
+@include generate-utility('justify-content', $justify-values, 'jc-');
+@include generate-utility('justify-items', $alignment-values, 'ji-');
+@include generate-utility('justify-self', $alignment-values, 'js-');
 
 // 定位系统
 .pos {
   @each $pos in relative, absolute, fixed, sticky {
-    &-#{$pos} {
-      position: $pos;
-    }
+    &-#{$pos} { position: $pos; }
   }
-
+  
   &-center {
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+// z-index 系统
+@for $i from 0 through 5 {
+  .z-#{$i * 10} { z-index: #{$i * 10}; }
 }
 
 // 图片系统
@@ -134,17 +88,13 @@
   }
   
   @each $fit in cover, contain {
-    &-#{$fit} {
-      object-fit: $fit;
-    }
+    &-#{$fit} { object-fit: $fit; }
   }
   
-  &-gray {
-    filter: grayscale(100%);
-  }
+  &-gray { filter: grayscale(100%); }
 }
 
-// 文字工具
+// 文字系统
 .text {
   &-center { text-align: center; }
   &-left { text-align: left; }
@@ -155,12 +105,82 @@
     text-overflow: ellipsis;
   }
 }
-@for $i from 12 through 48 {
-  .font-#{$i} {
-    font-size: #{$i}px;
-  }
+
+// 视觉效果
+$shadows: (
+  'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+  'default': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+  'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+);
+
+@each $key, $value in $shadows {
+  $class-name: if($key == 'default', '', '-#{$key}');
+  .shadow#{$class-name} { box-shadow: #{$value}; }
+}
+
+// 透明度系统
+@for $i from 0 through 4 {
+  .opacity-#{$i * 25} { opacity: #{$i * 0.25}; }
 }
 
 // 可见性
 .hidden { display: none; }
 .visible { overflow: visible; }
+
+// 尺寸函数
+@function get-size($value) {
+  @return if($value == 0, 0, $value + $unit-base);
+}
+
+// 间距系统
+@for $i from 0 through 16 {
+  $value: $i * $spacing-base;
+  
+  // Margin & Padding
+  .m-#{$i} { margin: get-size($value); }
+  .p-#{$i} { padding: get-size($value); }
+  
+  // Axis
+  .mx-#{$i} { margin-left: get-size($value); margin-right: get-size($value); }
+  .my-#{$i} { margin-top: get-size($value); margin-bottom: get-size($value); }
+  .px-#{$i} { padding-left: get-size($value); padding-right: get-size($value); }
+  .py-#{$i} { padding-top: get-size($value); padding-bottom: get-size($value); }
+  
+  // Directions
+  @each $dir, $prop in (t: top, r: right, b: bottom, l: left) {
+    .m#{$dir}-#{$i} { margin-#{$prop}: get-size($value); }
+    .p#{$dir}-#{$i} { padding-#{$prop}: get-size($value); }
+  }
+}
+
+// 尺寸工具类
+@for $i from 1 through 16 {
+  $value: $i * $spacing-base;
+  .w-#{$i} { width: get-size($value); }
+  .h-#{$i} { height: get-size($value); }
+}
+
+// 字体大小系统
+@for $i from 12 through 48 {
+  .font-#{$i} { font-size: #{$i}#{$unit-base}; }
+}
+
+// Gap 系统
+@for $i from 0 through 5 {
+  .gap-#{$i} { gap: #{$i * $spacing-base}#{$unit-base}; }
+}
+
+// 圆角系统
+$border-radius: (
+  'sm': 2,
+  'default': 4,
+  'lg': 8,
+  'full': 9999px
+);
+
+@each $key, $value in $border-radius {
+  $class-name: if($key == 'default', '', '-#{$key}');
+  .rounded#{$class-name} { 
+    border-radius: if(type-of($value) == 'number', #{$value}#{$unit-base}, $value);
+  }
+}

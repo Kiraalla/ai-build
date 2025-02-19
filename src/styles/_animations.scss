@@ -1,0 +1,70 @@
+// 过渡效果
+.transition { transition: all 0.3s ease; }
+.transition-fast { transition: all 0.15s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+// 变换效果
+.scale-hover:hover { transform: scale(1.05); }
+.rotate-hover:hover { transform: rotate(5deg); }
+.translate-up-hover:hover { transform: translateY(-5px); }
+
+// 新增动画关键帧
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInFromLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes rotate360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+// 新增动画类
+.animate-slide-right { animation: slideInFromRight 0.3s ease-out; }
+.animate-slide-left { animation: slideInFromLeft 0.3s ease-out; }
+.animate-bounce { animation: bounceIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+.animate-pulse { animation: pulse 1s ease-in-out infinite; }
+.animate-shake { animation: shake 0.5s ease-in-out; }
+.animate-spin { animation: rotate360 1s linear infinite; }
+
+// 动画持续时间变体
+.duration-300 { animation-duration: 300ms; }
+.duration-500 { animation-duration: 500ms; }
+.duration-1000 { animation-duration: 1000ms; }
+
+// 动画延迟
+.delay-100 { animation-delay: 100ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-500 { animation-delay: 500ms; }
+
+// 动画次数
+.infinite { animation-iteration-count: infinite; }
+.once { animation-iteration-count: 1; }
+
+// 动画类
+.animate-fade-in { animation: fadeIn 0.3s ease-in-out; }
+.animate-slide-in { animation: slideIn 0.3s ease-out; }
