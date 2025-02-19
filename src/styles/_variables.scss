@@ -1,0 +1,67 @@
+// ================== 主题变量 ==================
+:root {
+  --primary: #007bff;
+  --secondary: #6c757d;
+  --link: #007bff;
+  --background: #ffffff;
+  --dividers: #dee2e6;
+  --mask: rgba(0, 0, 0, 0.5);
+  --title: #212529;
+  --subtitle: #6c757d;
+  --disabled: #adb5bd;
+  --border: #dee2e6;
+  --success: #28a745;
+  --warning: #ffc107;
+  --danger: #dc3545;
+}
+
+// ================== 颜色系统 ==================
+$mapColor: (
+  primary: var(--primary),
+  secondary: var(--secondary),
+  link: var(--link),
+  success: var(--success),
+  warning: var(--warning),
+  danger: var(--danger),
+  background: var(--background),
+  dividers: var(--dividers),
+  mask: var(--mask),
+  title: var(--title),
+  subtitle: var(--subtitle),
+  disabled: var(--disabled),
+  border: var(--border),
+  light: #f8f9fa,
+  dark: #343a40,
+  white: #FFFFFF,
+  black: #000000,
+  333: #333,
+  666: #666,
+  999: #999,
+  eee: #EEE,
+  ddd: #DDD,
+  f0: #F0F0F0,
+  f5: #F5F5F5,
+  f7: #F7F7F7,
+  black-20: rgba(0, 0, 0, 0.2),
+  black-40: rgba(0, 0, 0, 0.4),
+  black-60: rgba(0, 0, 0, 0.6),
+  black-80: rgba(0, 0, 0, 0.8),
+  white-20: rgba(255, 255, 255, 0.2),
+  white-40: rgba(255, 255, 255, 0.4),
+  white-60: rgba(255, 255, 255, 0.6),
+  white-80: rgba(255, 255, 255, 0.8)
+);
+
+// ================== 布局变量 ==================
+$mapSelf: (
+  baseline: baseline,
+  stretch: stretch,
+  start: start,
+  end: end,
+  flex-start: flex-start,
+  flex-end: flex-end,
+  center: center,
+  unset: unset
+);
+
+$spacing-base: 4px;

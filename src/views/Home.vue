@@ -7,15 +7,15 @@
     <div class="home__demos">
       <!-- Pinia 状态管理演示 -->
       <div class="home__demo-section">
-        <h2>Pinia 状态管理演示</h2>
+        <h2 class="text-primary">Pinia 状态管理演示</h2>
         <div class="home__demo-content">
           <div class="user-info" v-if="userStore.userInfo">
             <p>当前用户：{{ userStore.userInfo.name }}</p>
             <button @click="userStore.logout">退出登录</button>
           </div>
           <div class="login-form" v-else>
-            <input v-model="loginForm.username" placeholder="用户名" />
-            <input v-model="loginForm.password" type="password" placeholder="密码" />
+            <input v-model="loginForm.username" placeholder="用户名" class="py-1"/>
+            <input v-model="loginForm.password" type="password" placeholder="密码"  class="py-1"/>
             <button @click="handleLogin">登录</button>
           </div>
         </div>
@@ -76,11 +76,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useUserStore } from '../stores/user'
+import { computed, ref } from 'vue'
+import { userApi } from '../api/user'
 import { useCounter } from '../composables/useCounter'
 import { useForm } from '../composables/useForm'
-import { userApi } from '../api/user'
+import { useUserStore } from '../stores/user'
 
 // Pinia 状态管理演示
 const userStore = useUserStore()
