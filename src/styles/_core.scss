@@ -129,7 +129,7 @@ $shadows: (
 
 // 尺寸函数
 @function get-size($value) {
-  @return if($value == 0, 0, $value + $unit-base);
+  @return if($value == 0, 0, $value * $unit-value + $unit-base);
 }
 
 // 间距系统
@@ -162,25 +162,24 @@ $shadows: (
 
 // 字体大小系统
 @for $i from 12 through 48 {
-  .font-#{$i} { font-size: #{$i}#{$unit-base}; }
+  .font-#{$i} { font-size: #{$i * $unit-value}#{$unit-base}; }
 }
 
 // Gap 系统
 @for $i from 0 through 5 {
-  .gap-#{$i} { gap: #{$i * $spacing-base}#{$unit-base}; }
+  .gap-#{$i} { gap: if($i == 0, 0, #{$i * $spacing-base * $unit-value}#{$unit-base}); }
 }
-
 // 圆角系统
 $border-radius: (
   'sm': 2,
   'default': 4,
   'lg': 8,
-  'full': 9999px
+  'full': 999
 );
 
 @each $key, $value in $border-radius {
   $class-name: if($key == 'default', '', '-#{$key}');
   .rounded#{$class-name} { 
-    border-radius: if(type-of($value) == 'number', #{$value}#{$unit-base}, $value);
+    border-radius: #{$value * $unit-value}#{$unit-base};
   }
 }

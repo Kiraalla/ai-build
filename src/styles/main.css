@@ -1,4 +1,4 @@
-:root { --primary: #007bff; --secondary: #6c757d; --link: #007bff; --background: #ffffff; --dividers: #dee2e6; --mask: rgba(0, 0, 0, 0.5); --title: #212529; --subtitle: #6c757d; --disabled: #adb5bd; --border: #dee2e6; --success: #28a745; --warning: #ffc107; --danger: #dc3545; }
+:root { --primary: #1073f5; --secondary: #da971c; --link: #183faa; --background: #ffffff; --dividers: #dee2e6; --mask: rgba(0, 0, 0, 0.5); --title: #212529; --subtitle: #6c757d; --disabled: #adb5bd; --border: #dee2e6; --success: #28a745; --warning: #ffc107; --danger: #dc3545; }
 
 .text-primary { color: var(--primary); }
 
@@ -882,7 +882,7 @@
 
 .font-48 { font-size: 48px; }
 
-.gap-0 { gap: 0px; }
+.gap-0 { gap: 0; }
 
 .gap-1 { gap: 4px; }
 
@@ -900,7 +900,7 @@
 
 .rounded-lg { border-radius: 8px; }
 
-.rounded-full { border-radius: 9999pxpx; }
+.rounded-full { border-radius: 999px; }
 
 .transition { transition: all 0.3s ease; }
 

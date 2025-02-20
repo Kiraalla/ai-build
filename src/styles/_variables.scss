@@ -1,8 +1,8 @@
 // ================== 主题变量 ==================
 :root {
-  --primary: #007bff;
-  --secondary: #6c757d;
-  --link: #007bff;
+  --primary: #1073f5;
+  --secondary: #da971c;
+  --link: #183faa;
   --background: #ffffff;
   --dividers: #dee2e6;
   --mask: rgba(0, 0, 0, 0.5);
@@ -66,8 +66,6 @@ $mapSelf: (
 
 // ================== 基础配置 ==================
 // 单位配置
+$unit-value: 1;  // 单位倍率
 $unit-base: px !default;  // 基础单位类型
 $spacing-base: 4 !default;  // 基础间距数值
-
-// 删除有问题的 spacing-unit
-// $spacing-unit: $spacing-base + $unit-base;  // 这行代码会导致错误的字符串拼接
