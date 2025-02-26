@@ -33,6 +33,10 @@
             <span class="layout__menu-icon">⚙️</span>
             <span class="layout__menu-text">设置</span>
           </router-link>
+          <router-link to="/components" class="layout__menu-item">
+            <span class="layout__menu-icon">🧩</span>
+            <span class="layout__menu-text">组件库</span>
+          </router-link>
         </nav>
       </aside>
 

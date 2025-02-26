@@ -1,5 +1,4 @@
 // 导入核心样式
-// @import './_variables';
-@import './_core';
-@import './_animations';
-// @import './_responsive';
+@use './_core';
+@use './_animations';
+@use './_responsive';

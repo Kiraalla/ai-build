@@ -1,11 +1,73 @@
-@import './_variables';
+@use "sass:map";
+@forward './_variables';
+@use './_variables' as *;
 
 // ================== 基础混入 ==================
+// 通用工具类生成器
 @mixin generate-utility($property, $values, $prefix: '') {
   @each $key, $value in $values {
     .#{$prefix}#{'' + $key} {
       #{$property}: $value;
     }
+  }
+}
+
+// 多行文本截断
+@mixin text-truncate-lines($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 文本渐变
+@mixin text-gradient($start-color, $end-color, $direction: to right) {
+  background: linear-gradient($direction, $start-color, $end-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Flex布局快捷方式
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Grid布局助手
+@mixin grid-auto-fit($min-size: 200px, $gap: 1rem) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat(auto-fit, minmax($min-size, 1fr));
+}
+
+// 交互效果
+@mixin hover-lift($distance: -3px) {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: translateY($distance);
+  }
+}
+
+@mixin hover-scale($scale: 1.05) {
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+@mixin focus-ring($color: var(--primary), $offset: 2px) {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 $offset $color;
   }
 }
 
@@ -49,7 +111,7 @@ $alignment-values: (
   stretch: stretch
 );
 
-$justify-values: map-merge($alignment-values, (
+$justify-values: map.merge($alignment-values, (
   between: space-between,
   around: space-around
 ));
